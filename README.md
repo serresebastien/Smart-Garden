@@ -1,1 +1,1 @@
-# Smart-Garden
+# :seedling: Smart Garden :seedling:
