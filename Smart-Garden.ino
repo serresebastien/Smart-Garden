@@ -14,6 +14,8 @@ boolean LightON = true;
 
 int pinSensorHumidity = A0; 
 int pinSensorTemp = A1;
+int pinSensorWater = A2;
+
 int pinSensorLight = 8;
 int pinLight = 6;
 int pinPump = 7;
@@ -21,6 +23,8 @@ int pinPump = 7;
 int sensorValueHumidity;
 int sensorValueLight;
 int sensorValueTemp;
+int sensorValueWater;
+
 
 /****** Arrosage ******/
 
@@ -48,13 +52,42 @@ bool getLightValue() {
 
 /****** Température *****/
 
-void getTempValue() {
+int getTempValue() {
   
   sensorValueTemp = analogRead(pinSensorTemp);
 
   lcd.setCursor(5, 3);
   lcd.print("Temp : ");
   lcd.write(sensorValueTemp);
+
+  return sensorValueTemp;
+  }
+
+  /******** Niveau D'eau **********/
+
+int getWaterValue() {
+  
+  sensorValueWater = analogRead(pinSensorWater);
+
+  lcd.setCursor(5, 2);
+  lcd.print("Water : ");
+  lcd.write(sensorValueWater);
+
+  return sensorValueWater;
+  }
+
+  /******** Humidité *********/
+
+  
+int getHumidityTest() {
+  
+  sensorValueHumidity = analogRead(pinSensorHumidity);
+
+  lcd.setCursor(5, 2);
+  lcd.print("Humidity : ");
+  lcd.write(sensorValueHumidity);
+
+  return sensorValueHumidity;
   }
 
 /****** Relais ******/
@@ -88,16 +121,19 @@ void manageLCD() {
     lcd.print("   en cours   ");
     lcd.write(byte(4));
   }
+
+  if (PumpON == false) {   
   
-  if (LightON == true && PumpON == false) {
+  if (LightON == true) {
     lcd.setCursor(0, 3);
     lcd.print("LIGHT : ON");    
   }
-  if (LightON == false && PumpON == false) {
+  if (LightON == false) {
     lcd.setCursor(0, 3);
     lcd.print("LIGHT : OFF");    
   }
   
+}
 }
 
 void clearLCD () {
@@ -227,6 +263,13 @@ void loop() {
   } else { 
     digitalWrite(pinLight, HIGH);
   }
+
+  Serial.print("Temp :");
+  Serial.println(getTempValue() );
+  Serial.print("Humidity :");
+  Serial.println(getHumidityTest() );
+  Serial.print("Water Level :");
+  Serial.println(getWaterValue () );
 
   manageLCD();
 
