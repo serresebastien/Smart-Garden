@@ -1,3 +1,3 @@
 # :seedling: Smart Garden :seedling:
 
-Test
+## Prerequisites
