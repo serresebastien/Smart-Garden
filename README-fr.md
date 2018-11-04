@@ -1,5 +1,5 @@
-[🇫🇷](/README-fr.md "French")
+[🇬🇧](/README.md "French")
 
 # :seedling: Smart Garden :seedling:
 
-## Prerequisites
+## Prerequies
